@@ -152,6 +152,7 @@ UNICODE_DASHES = {
 
 # language with missing value
 # will not have support for tokenization
+# VP: This is used to key language in UMLS, arg parsing and to grab stopwords from NLTK
 LANGUAGES = {
     'BAQ': None,           # Basque
     'CHI': None,           # Chinese
@@ -184,8 +185,11 @@ DOMAIN_SPECIFIC_STOPWORDS = {
     'time'
 }
 
+# VP: This is used to lookup proper spaCy model
 SPACY_LANGUAGE_MAP = {
     'ENG': 'en',
+    # VP: You have to manually download this first, follow https://allenai.github.io/scispacy/
+    #'ENG': 'en_core_sci_sm',
     'GER': 'de',
     'SPA': 'es',
     'POR': 'pt',
