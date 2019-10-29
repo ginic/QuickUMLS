@@ -6,6 +6,7 @@ from __future__ import (
 import os
 import sys
 import datetime
+import logging
 from six.moves import xrange
 
 # installed modules
@@ -18,9 +19,13 @@ from . import toolbox
 from . import constants
 
 
+logger = logging.getLogger(__name__)
+
+
 class QuickUMLS(object):
     """The main class to interact with the matcher.
     """
+
     def __init__(
             self, quickumls_fp,
             overlapping_criteria='score', threshold=0.7, window=5,
@@ -155,7 +160,7 @@ class QuickUMLS(object):
         """Computes a summary of the matcher options.
 
         Returns:
-            Dict: Dictionary containing information on the QuicUMLS instance.
+            Dict: Dictionary containing information on the QuickUMLS instance.
         """
         return self.info
 
@@ -167,9 +172,9 @@ class QuickUMLS(object):
         """Computes a summary of the matcher options.
 
         Returns:
-            Dict: Dictionary containing information on the QuicUMLS instance.
+            Dict: Dictionary containing information on the QuickUMLS instance.
         """
-        # useful for caching of respnses
+        # useful for caching of responses
 
         if self._info is None:
             self._info = {
@@ -418,13 +423,15 @@ class QuickUMLS(object):
             List: List of all matches in the text
             TODO: Describe format
         """
-
+        # Produces a spacy Doc object where len(parsed) is the number of tokens it contains
         parsed = self.nlp(u'{}'.format(text))
+        logger.debug("POS tags: %s", [(t, t.pos_) for t in parsed])
 
         if ignore_syntax:
             ngrams = self._make_token_sequences(parsed)
         else:
-            ngrams = self._make_ngrams(parsed)
+            ngrams = [i for i in self._make_ngrams(parsed)]
+            logger.debug("Ngram candidates for lookup %s", ngrams)
 
         matches = self._get_all_matches(ngrams)
 
