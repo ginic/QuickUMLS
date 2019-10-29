@@ -187,9 +187,9 @@ DOMAIN_SPECIFIC_STOPWORDS = {
 
 # VP: This is used to lookup proper spaCy model
 SPACY_LANGUAGE_MAP = {
-    'ENG': 'en',
+    # 'ENG': 'en',
     # VP: You have to manually download this first, follow https://allenai.github.io/scispacy/
-    #'ENG': 'en_core_sci_sm',
+    'ENG': 'en_core_sci_md',
     'GER': 'de',
     'SPA': 'es',
     'POR': 'pt',

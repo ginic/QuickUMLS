@@ -139,6 +139,7 @@ class QuickUMLS(object):
         self.accepted_semtypes = accepted_semtypes
 
         try:
+            logger.debug("Loading spacy model: %s", spacy_lang)
             self.nlp = spacy.load(spacy_lang)
         except OSError:
             msg = (
